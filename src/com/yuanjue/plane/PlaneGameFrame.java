@@ -29,7 +29,7 @@ public class PlaneGameFrame extends MyFrame {
 		g.drawImage(bg, 0, 0, null);
 		p.draw(g);
 		for(int i=0;i<bulletList.size();i++){
-			Bullet b = (Bullet) bulletList.get(i);
+			Bullet b = bulletList.get(i);
 			b.draw(g);
 			boolean peng = b.getRect().intersects(p.getRect());
 			if(peng){
