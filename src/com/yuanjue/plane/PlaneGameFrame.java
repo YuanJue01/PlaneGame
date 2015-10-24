@@ -14,9 +14,11 @@ import com.yuanjue.util.GameUtil;
 import com.yuanjue.util.MyFrame;
 
 public class PlaneGameFrame extends MyFrame {
+
+	private static final long serialVersionUID = 1L;
 	Image bg = GameUtil.getImage("images/bg.jpg");
 	Plane p = new Plane("images/plane.png",50,50);
-	ArrayList  bulletList = new ArrayList();   //泛型暂时未学，暂不加。以后学了，强烈建议加上。
+	ArrayList<Bullet>  bulletList = new ArrayList<Bullet>();   //泛型暂时未学，暂不加。以后学了，强烈建议加上。
 	
 	Date startTime;
 	Date endTime;
