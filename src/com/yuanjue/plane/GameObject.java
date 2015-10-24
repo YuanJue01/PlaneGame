@@ -24,7 +24,7 @@ public class GameObject {
 	}
 
 	public Rectangle getRect(){
-		return new Rectangle((int)x,(int)y,width,height);
+		return new Rectangle((int)x,(int)x,width,height);
 	}
 	
 }
