@@ -6,57 +6,56 @@ import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class MyFrame extends Frame
-{
-	/**
-	 * @author 路锦博
-	 * 2015年10月23日上午9:39:32
-	 */
-	private static final long serialVersionUID = 1L;
+
+public class MyFrame  extends Frame {
 	
 	/**
-	 * 用双缓冲技术消除闪烁
+	 * 加载窗口
 	 */
-	Image ImageBuffer = null;
-	Graphics GraImage = null;
-	public void update(Graphics g){		//覆盖update方法，截取默认的调用过程
-		ImageBuffer = createImage(this.getWidth(), this.getHeight());	//创建图形缓冲区
-		GraImage = ImageBuffer.getGraphics();		//获取图形缓冲区的图形上下文
-		paint(GraImage);		//用paint方法中编写的绘图过程对图形缓冲区绘图
-		GraImage.dispose();		//释放图形上下文资源
-		g.drawImage(ImageBuffer, 0, 0, this);	//将图形缓冲区绘制到屏幕上
-	}
-	
-	public void launchFrame()
-	{
-		setSize(Constant.WIDTH, Constant.HEIGHT);
+	public void launchFrame(){
+		setSize(Constant.GAME_WIDTH, Constant.GAME_HEIGHT);
 		setLocation(100, 100);
 		setVisible(true);
 		
-		new PaintThread().start();
+		new PaintThread().start();  //启动重画线程
 		
-		addWindowListener(new WindowAdapter()
-		{
+		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent e)
-			{
+			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
-	class PaintThread extends Thread
-	{
-		public void run()
-		{
-			while(true)
-			{
+	
+	
+	private Image offScreenImage = null;
+	public void update(Graphics g) {
+		if(offScreenImage == null)
+			offScreenImage = this.createImage(Constant.GAME_WIDTH,Constant.GAME_HEIGHT);
+		
+		Graphics gOff = offScreenImage.getGraphics();
+
+		paint(gOff);
+		g.drawImage(offScreenImage, 0, 0, null);
+	}
+	
+	/**
+	 * 定义一个重画窗口的线程类，是一个内部类
+	 * @author dell
+	 *
+	 */
+	class PaintThread extends Thread {
+		
+		public void run(){
+			while(true){
 				repaint();
-				try{
-					Thread.sleep(40);
-				}catch(InterruptedException e){
+				try {
+					Thread.sleep(40); //1s = 1000ms
+				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}   
 			}
 		}
+		
 	}
 }

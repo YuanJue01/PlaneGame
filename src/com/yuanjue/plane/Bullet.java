@@ -2,18 +2,20 @@ package com.yuanjue.plane;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 import com.yuanjue.util.Constant;
 
 public class Bullet extends GameObject {
 	double degree;
 	
 	public Bullet(){
+		degree = Math.random()*Math.PI*2;
+		x = Constant.GAME_WIDTH/2;
+		y = Constant.GAME_WIDTH/2;
 		width = 10;
 		height = 10;
-		degree = Math.random()*Math.PI*2;
-		x = Constant.WIDTH/2;
-		y = Constant.HEIGHT/2;
 	}
+	
 	
 	public void draw(Graphics g){
 		Color c = g.getColor();
@@ -23,13 +25,17 @@ public class Bullet extends GameObject {
 		x += speed*Math.cos(degree);
 		y += speed*Math.sin(degree);
 		
-		if (y>Constant.HEIGHT-height || y<30) {
+		
+		if(y>Constant.GAME_HEIGHT-height||y<30){
 			degree = -degree;
 		}
-		if (x<0 || x>Constant.WIDTH-width) {
+		
+		if(x<0||x>Constant.GAME_WIDTH-width){
 			degree = Math.PI-degree;
 		}
 		
+		
 		g.setColor(c);
 	}
+	
 }

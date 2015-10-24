@@ -1,33 +1,24 @@
 package com.yuanjue.plane;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import com.yuanjue.util.GameUtil;
 
 public class Plane extends GameObject {
 	private boolean left,up,right,down;
+	
 	private boolean live = true;
 	
 	public void draw(Graphics g){
 		if(live){
-			g.drawImage(imgplane,(int)x,(int)y,null);
+			g.drawImage(img, (int)x, (int)y, null);
 			move();
 		}
-		
 	}
 
-	public Plane(String imgpath, double x, double y) {
-		this.imgplane = GameUtil.getImage(imgpath);
-		this.width = imgplane.getWidth(null);
-		this.height = imgplane.getHeight(null);
-		this.x = x;
-		this.y = y;
-	}
-	
-	public Plane(){}
-	
-	//“∆∂ØπÊ‘Ú
 	public void move(){
 		if(left){
 			x -= speed;
@@ -41,6 +32,7 @@ public class Plane extends GameObject {
 		if(down){
 			y += speed;
 		}
+		
 	}
 	
 	public void addDirection(KeyEvent e){
@@ -80,6 +72,22 @@ public class Plane extends GameObject {
 			break;
 		}
 	}
+	
+	
+	
+	
+	public Plane(String imgpath, double x, double y) {
+		this.img =  GameUtil.getImage(imgpath);
+		System.out.println(img.getWidth(null));
+		System.out.println(img.getWidth(null));
+		this.width = img.getWidth(null);
+		this.height = img.getWidth(null);
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Plane(){
+	}
 
 	public boolean isLive() {
 		return live;
@@ -88,4 +96,7 @@ public class Plane extends GameObject {
 	public void setLive(boolean live) {
 		this.live = live;
 	}
+	
+	
+	
 }
